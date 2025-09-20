@@ -15,5 +15,3 @@
 # OS
 .DS_Store
 Thumbs.db
-# Firebase secret key
-server/*.json
