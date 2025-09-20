@@ -32,8 +32,6 @@ app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerSpecs));
 app.use(
   cors({
     origin: [
-      'https://cgv-cinemas-web.herokuapp.com',
-      'https://admin-cgv-cinemas.herokuapp.com',
       'http://localhost:3000',
     ],
     methods: ['GET', 'HEAD', 'PUT', 'PATCH', 'POST', 'DELETE'],
