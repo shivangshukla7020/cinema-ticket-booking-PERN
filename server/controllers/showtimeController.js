@@ -1,4 +1,5 @@
-import {
+import db from '../models/index.js';
+const {
   Showtime,
   Movie,
   Cinema,
@@ -7,7 +8,7 @@ import {
   Booking,
   Ticket,
   sequelize,
-} from '../models';
+} = db;
 import _ from 'lodash';
 import moment from 'moment';
 

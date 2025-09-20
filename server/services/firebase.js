@@ -1,14 +1,17 @@
 import admin from 'firebase-admin';
-import serviceAccount from '../cgv-cinemas-1cbd9-firebase-adminsdk-rbpt3-3848a90f94.json';
+import { createRequire } from 'module';
+const require = createRequire(import.meta.url);
 
-// Initialize firebase admin SDK
+// Load Firebase service account JSON
+const serviceAccount = require('../cinema-ticket-booking-e841c-firebase-adminsdk-fbsvc-be9a991d76.json');
+
+// Initialize Firebase Admin SDK
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
   storageBucket: 'cgv-cinemas-1cbd9.appspot.com',
 });
+
 // Cloud storage
 const bucket = admin.storage().bucket();
 
-module.exports = {
-  bucket,
-};
+export default bucket

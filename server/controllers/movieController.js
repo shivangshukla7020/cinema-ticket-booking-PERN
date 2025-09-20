@@ -1,5 +1,6 @@
 import { v4 as uuidv4 } from 'uuid';
-import {
+import db from '../models/index.js';
+const {
   Movie,
   Showtime,
   Booking,
@@ -8,11 +9,11 @@ import {
   Cineplex,
   CinemaType,
   sequelize,
-} from '../models';
+} = db;
 import { Op } from 'sequelize';
 import moment from 'moment';
 import multer from 'multer';
-import firebase from '../services/firebase';
+import firebase from '../services/firebase.js';
 
 let upload = multer({ storage: multer.memoryStorage() }).single('poster');
 

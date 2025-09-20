@@ -1,8 +1,8 @@
-require('dotenv').config();
-
+import 'dotenv/config';
 import jwt from 'jsonwebtoken';
-import { Admin, User } from '../models';
-import { comparePassword } from '../utils/password';
+import db from '../models/index.js';
+const { Admin, User } = db;
+import { comparePassword } from '../utils/password.js';
 
 const login = async (req, res) => {
   const { email, password } = req.body;

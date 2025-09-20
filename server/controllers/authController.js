@@ -1,10 +1,10 @@
-require('dotenv').config();
-
+import 'dotenv/config';
+import db from '../models/index.js';
 import jwt from 'jsonwebtoken';
-import { User } from '../models';
-import { comparePassword, getHashedPassword } from '../utils/password';
-import USER_STATUS from '../constants/userStatus';
-import MailService from '../services/mail';
+const { User } = db;
+import { comparePassword, getHashedPassword } from '../utils/password.js';
+import USER_STATUS from '../constants/userStatus.js';
+import MailService from '../services/mail.js';
 
 const register = async (req, res) => {
   const { fullname, email, phone, password, birthday, address } = req.body;

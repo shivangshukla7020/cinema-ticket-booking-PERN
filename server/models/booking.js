@@ -1,4 +1,4 @@
-module.exports = (sequelize, DataTypes) => {
+const booking = (sequelize, DataTypes) => {
   const Booking = sequelize.define(
     'Booking',
     {
@@ -26,3 +26,5 @@ module.exports = (sequelize, DataTypes) => {
 
   return Booking;
 };
+
+export default booking;

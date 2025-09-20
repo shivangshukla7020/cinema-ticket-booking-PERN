@@ -1,4 +1,4 @@
-module.exports = (sequelize, DataTypes) => {
+const cineplex = (sequelize, DataTypes) => {
   const Cineplex = sequelize.define(
     'Cineplex',
     {
@@ -27,3 +27,5 @@ module.exports = (sequelize, DataTypes) => {
 
   return Cineplex;
 };
+
+export default cineplex;

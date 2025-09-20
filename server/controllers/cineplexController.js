@@ -1,7 +1,8 @@
-require('dotenv').config();
-import { Cineplex, Cinema } from '../models';
+import 'dotenv/config';
+import db from '../models/index.js';
+const { Cineplex, Cinema } = db;
 import multer from 'multer';
-import firebase from '../services/firebase';
+import firebase from '../services/firebase.js';
 
 let upload = multer({ storage: multer.memoryStorage() }).single('image');
 

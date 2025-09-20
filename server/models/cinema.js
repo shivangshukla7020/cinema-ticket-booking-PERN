@@ -1,4 +1,4 @@
-module.exports = (sequelize, DataTypes) => {
+const cinema = (sequelize, DataTypes) => {
   const Cinema = sequelize.define(
     'Cinema',
     {
@@ -30,3 +30,5 @@ module.exports = (sequelize, DataTypes) => {
 
   return Cinema;
 };
+
+export default cinema

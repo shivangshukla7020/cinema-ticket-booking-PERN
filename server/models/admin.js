@@ -1,5 +1,5 @@
-module.exports = (sequelize, DataTypes) => {
-  const Admin = sequelize.define(
+const Admin = (sequelize, DataTypes) => {
+  const AdminModel = sequelize.define(
     'Admin',
     {
       id: {
@@ -17,7 +17,9 @@ module.exports = (sequelize, DataTypes) => {
     {}
   );
 
-  Admin.associate = function () {};
+  AdminModel.associate = function () {};
 
-  return Admin;
+  return AdminModel;
 };
+
+export default Admin;

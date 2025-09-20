@@ -1,7 +1,8 @@
-import { User, Booking, Ticket, Showtime, Movie, Cinema, CinemaType, Cineplex } from '../models';
+import db from '../models/index.js';
+const { User, Booking, Ticket, Showtime, Movie, Cinema, CinemaType, Cineplex } = db;
 import { v4 as uuidv4 } from 'uuid';
 import moment from 'moment';
-import MailService from '../services/mail';
+import MailService from '../services/mail.js';
 
 const getByUserId = async (req, res, next) => {
   try {

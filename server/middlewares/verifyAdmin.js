@@ -1,4 +1,4 @@
-require('dotenv').config();
+import 'dotenv/config';
 
 const verifyAdmin = (req, res, next) => {
   const user = req.auth;

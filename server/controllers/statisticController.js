@@ -1,4 +1,5 @@
-import { Movie, Cineplex, Cinema, Showtime, Booking, Ticket, sequelize } from '../models';
+import db from '../models/index.js';
+const { Movie, Cineplex, Cinema, Showtime, Booking, Ticket, sequelize } = db;
 import { Op } from 'sequelize';
 import moment from 'moment';
 

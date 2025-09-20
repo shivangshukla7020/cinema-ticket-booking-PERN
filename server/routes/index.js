@@ -1,17 +1,17 @@
 import express from 'express';
-import * as AuthController from '../controllers/authController';
-import * as UserController from '../controllers/userController';
-import * as MovieController from '../controllers/movieController';
-import * as CineplexController from '../controllers/cineplexController';
-import * as CinemaController from '../controllers/cinemaController';
-import * as ShowtimeController from '../controllers/showtimeController';
-import * as BookingController from '../controllers/bookingControlller';
-import * as TicketController from '../controllers/ticketController';
-import * as AdminController from '../controllers/adminController';
-import * as StatisticController from '../controllers/statisticController';
-import { resetPasswordValidator, userValidator } from '../validations/auth';
-import verifyUser from '../middlewares/verifyUser';
-import isAdmin from '../middlewares/verifyAdmin';
+import * as AuthController from '../controllers/authController.js';
+import * as UserController from '../controllers/userController.js';
+import * as MovieController from '../controllers/movieController.js';
+import * as CineplexController from '../controllers/cineplexController.js';
+import * as CinemaController from '../controllers/cinemaController.js';
+import * as ShowtimeController from '../controllers/showtimeController.js';
+import * as BookingController from '../controllers/bookingController.js'; // fixed typo
+import * as TicketController from '../controllers/ticketController.js';
+import * as AdminController from '../controllers/adminController.js';
+import * as StatisticController from '../controllers/statisticController.js';
+import { resetPasswordValidator, userValidator } from '../validations/auth.js';
+import verifyUser from '../middlewares/verifyUser.js';
+import isAdmin from '../middlewares/verifyAdmin.js';
 
 const router = express.Router();
 

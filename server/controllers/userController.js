@@ -1,6 +1,7 @@
-import { User } from '../models';
+import db from '../models/index.js';
+const { User } = db;
 import multer from 'multer';
-import firebase from '../services/firebase';
+import firebase from '../services/firebase.js';
 
 let upload = multer({ storage: multer.memoryStorage() }).single('avatar');
 

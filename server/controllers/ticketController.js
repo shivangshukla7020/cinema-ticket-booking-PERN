@@ -1,4 +1,5 @@
-import { User, Booking, Ticket, Showtime, Movie, Cinema, Cineplex, CinemaType } from '../models';
+import db from '../models/index.js';
+const { User, Booking, Ticket, Showtime, Movie, Cinema, Cineplex, CinemaType } = db;
 
 const getAll = async (req, res, next) => {
   try {

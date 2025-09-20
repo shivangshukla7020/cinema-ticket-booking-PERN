@@ -1,9 +1,9 @@
-require('dotenv').config();
+import 'dotenv/config';
 
-import expressJwt from 'express-jwt';
+import { expressjwt as expressJwt } from 'express-jwt';
 
 const verifyUser = expressJwt({
-  secret: process.env.JWT_SECRET,
+  secret: process.env.JWT_SECRET || "hello",
   userProperty: 'auth',
   algorithms: ['HS256'],
 });

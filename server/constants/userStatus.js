@@ -3,4 +3,4 @@ const USER_STATUS = {
   VERIFIED: 'VERIFIED',
   WAITING: 'WAITING',
 };
-module.exports = USER_STATUS;
+export default USER_STATUS;

@@ -1,4 +1,4 @@
-module.exports = (sequelize, DataTypes) => {
+const showTime = (sequelize, DataTypes) => {
   const Showtime = sequelize.define(
     'Showtime',
     {
@@ -30,3 +30,5 @@ module.exports = (sequelize, DataTypes) => {
 
   return Showtime;
 };
+
+export default showTime;

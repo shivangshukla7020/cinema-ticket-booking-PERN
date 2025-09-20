@@ -1,5 +1,5 @@
 import SequelizeSlugify from 'sequelize-slugify';
-module.exports = (sequelize, DataTypes) => {
+const movie = (sequelize, DataTypes) => {
   const Movie = sequelize.define(
     'Movie',
     {
@@ -44,3 +44,5 @@ module.exports = (sequelize, DataTypes) => {
 
   return Movie;
 };
+
+export default movie;
