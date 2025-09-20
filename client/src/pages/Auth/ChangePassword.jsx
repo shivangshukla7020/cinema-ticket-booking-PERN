@@ -1,10 +1,10 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getUserSelector } from "../../../redux/selectors/authSelector";
+import { getUserSelector } from "../../redux/selectors/authSelector";
 import { Redirect, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
-import { changePasswordAction } from "../../../redux/actions/authActions";
+import { changePasswordAction } from "../../redux/actions/authActions";
 
 const ChangePassword = () => {
   const user = useSelector(getUserSelector);

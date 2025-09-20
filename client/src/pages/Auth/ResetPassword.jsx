@@ -3,7 +3,7 @@ import { Redirect, useHistory } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-hot-toast";
-import { resetPasswordAction } from "../../../redux/actions/authActions";
+import { resetPasswordAction } from "../../redux/actions/authActions";
 
 const ResetPassword = (props) => {
   const isVerifyCodeResetPassword = props.location.state;

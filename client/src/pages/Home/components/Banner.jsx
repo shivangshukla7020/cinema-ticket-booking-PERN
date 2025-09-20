@@ -1,5 +1,4 @@
-import React from 'react';
-import './styles.scss';
+import React, { useState, useEffect } from 'react';
 
 function Banner() {
   const banners = [
@@ -13,27 +12,43 @@ function Banner() {
     'https://www.cgv.vn/media/banner/cache/1/b58515f018eb873dafa430b6f9ae0c1e/u/e/uefxcgv_980x448.jpg',
   ];
 
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  // Auto-slide every 3 seconds
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentIndex((prevIndex) => (prevIndex + 1) % banners.length);
+    }, 3000);
+
+    return () => clearInterval(interval);
+  }, [banners.length]);
+
   return (
-    <div id="carouselExampleIndicators" className="carousel slide carousel-fade" data-bs-ride="carousel">
-      <div className="carousel-indicators">
-        {banners.map((_, index) => (
-          <button
+    <div className="relative w-full overflow-hidden">
+      {/* Slides */}
+      <div className="relative w-full h-72 md:h-96">
+        {banners.map((url, index) => (
+          <img
             key={index}
-            type="button"
-            data-bs-target="#carouselExampleIndicators"
-            data-bs-slide-to={index}
-            className={index === 0 ? 'active' : ''}
-            aria-current={index === 0 ? 'true' : undefined}
-            aria-label={`Slide ${index + 1}`}
+            src={url}
+            alt={`slide-${index}`}
+            className={`absolute top-0 left-1/2 transform -translate-x-1/2 transition-opacity duration-1000 w-4/5 h-3/4 object-cover rounded-lg ${
+              index === currentIndex ? 'opacity-100 z-10' : 'opacity-0 z-0'
+            }`}
           />
         ))}
       </div>
 
-      <div className="carousel-inner">
-        {banners.map((url, index) => (
-          <div key={index} className={`carousel-item ${index === 0 ? 'active' : ''}`} data-bs-interval={1000}>
-            <img src={url} className="mx-auto d-block w-75 h-75 img-banner" alt={`slide-${index}`} />
-          </div>
+      {/* Indicators */}
+      <div className="absolute bottom-2 left-1/2 transform -translate-x-1/2 flex space-x-2">
+        {banners.map((_, index) => (
+          <button
+            key={index}
+            className={`w-3 h-3 rounded-full transition-colors ${
+              index === currentIndex ? 'bg-red-500' : 'bg-gray-300'
+            }`}
+            onClick={() => setCurrentIndex(index)}
+          />
         ))}
       </div>
     </div>

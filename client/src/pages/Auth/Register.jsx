@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, Redirect, useHistory } from "react-router-dom";
 import moment from "moment";
-import { registerAction } from "../../../redux/actions/authActions";
+import { registerAction } from "../../redux/actions/authActions";
 
 const Register = () => {
   const { register, handleSubmit } = useForm();

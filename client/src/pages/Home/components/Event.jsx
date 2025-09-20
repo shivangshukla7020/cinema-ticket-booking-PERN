@@ -4,7 +4,6 @@ import 'swiper/css';
 import 'swiper/css/pagination';
 import 'swiper/css/navigation';
 import { Autoplay, Pagination, Navigation } from 'swiper';
-import { Image } from 'react-bootstrap';
 
 function Event() {
   const events = [
@@ -29,7 +28,7 @@ function Event() {
         className="mx-auto mb-4"
       />
 
-      <div className="container mx-auto px-0">
+      <div className="w-3/4 mx-auto">
         <Swiper
           modules={[Autoplay, Pagination, Navigation]}
           slidesPerView={4}
@@ -40,7 +39,6 @@ function Event() {
           loopFillGroupWithBlank={true}
           pagination={{ clickable: true }}
           navigation={true}
-          className="w-3/4 mx-auto"
         >
           {events.map((url, i) => (
             <SwiperSlide key={i} className="flex justify-center">
@@ -54,10 +52,14 @@ function Event() {
         </Swiper>
       </div>
 
-      <div className="container w-3/4 mx-auto mt-6 flex justify-between gap-4">
+      <div className="w-3/4 mx-auto mt-6 flex gap-4">
         {thumbnails.map((thumb, i) => (
           <div key={i} className="flex-1">
-            <Image thumbnail src={thumb} className="w-full h-auto object-cover" />
+            <img
+              src={thumb}
+              alt={`thumb-${i}`}
+              className="w-full h-auto object-cover rounded-md border"
+            />
           </div>
         ))}
       </div>

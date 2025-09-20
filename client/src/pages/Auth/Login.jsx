@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, Redirect, useHistory } from "react-router-dom";
-import { loginAction } from "../../../redux/actions/authActions";
+import { loginAction } from "../../redux/actions/authActions";
 
 const Login = () => {
   const { register, handleSubmit } = useForm();

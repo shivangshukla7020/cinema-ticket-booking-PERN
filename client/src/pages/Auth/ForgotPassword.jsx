@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useHistory, Redirect, Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
-import { forgotPasswordAction } from "../../../redux/actions/authActions";
+import { forgotPasswordAction } from "../../redux/actions/authActions";
 
 const ForgotPassword = () => {
   const { register, handleSubmit } = useForm();

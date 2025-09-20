@@ -5,8 +5,8 @@ import 'swiper/css/pagination';
 import 'swiper/css/navigation';
 import { Autoplay, Pagination, Navigation } from 'swiper';
 import { useDispatch, useSelector } from 'react-redux';
-import { getMoviesSelector } from '../../../../redux/selectors/movieSelector';
-import { getAllMoviesByStateAction } from '../../../../redux/actions/movieActions';
+import { getMoviesSelector } from '../../../redux/selectors/movieSelector';
+import { getAllMoviesByStateAction } from '../../../redux/actions/movieActions';
 import { Link } from 'react-router-dom';
 
 function MovieSelection() {

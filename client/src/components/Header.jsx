@@ -1,8 +1,8 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory, Link } from "react-router-dom";
-import { getUserSelector } from "../../redux/selectors/authSelector";
-import { getUserInfoAction, logoutAction } from "../../redux/actions/authActions";
+import { getUserSelector } from "../redux/selectors/authSelector";
+import { getUserInfoAction, logoutAction } from "../redux/actions/authActions";
 
 const Header = () => {
   const user = useSelector(getUserSelector);

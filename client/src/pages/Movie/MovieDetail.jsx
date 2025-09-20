@@ -1,10 +1,10 @@
 import React, { useEffect, useLayoutEffect } from 'react';
 import { useParams } from 'react-router';
 import { useDispatch, useSelector } from 'react-redux';
-import { getMovieBySlugSelector } from '../../../redux/selectors/movieSelector';
-import { getMovieBySlugAction } from '../../../redux/actions/movieActions';
+import { getMovieBySlugSelector } from '../../redux/selectors/movieSelector';
+import { getMovieBySlugAction } from '../../redux/actions/movieActions';
 import moment from 'moment';
-import ModalForm from '../components/ModalForm';
+import ModalForm from './components/ModalForm';
 
 function MovieDetail() {
   const { slug } = useParams();

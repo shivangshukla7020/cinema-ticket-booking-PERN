@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   verifyCodeResetPasswordAction,
   verifyEmailAction,
-} from "../../../redux/actions/authActions";
+} from "../../redux/actions/authActions";
 
 const EnterCode = (props) => {
   const email = props.location.state ? props.location.state[0] : "";

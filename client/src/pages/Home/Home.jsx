@@ -1,7 +1,7 @@
 import React from 'react';
-import Banner from '../components/Banner';
-import MovieSelection from '../components/MovieSelection';
-import Event from '../components/Event';
+import Banner from './components/Banner';
+import MovieSelection from './components/MovieSelection';
+import Event from './components/Event';
 
 function Home() {
   return (

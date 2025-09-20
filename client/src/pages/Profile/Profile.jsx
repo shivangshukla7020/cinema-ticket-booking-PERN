@@ -1,10 +1,9 @@
-import React from 'react';
-import { useSelector } from 'react-redux';
-import { Redirect } from 'react-router-dom';
-import { getUserSelector } from '../../redux/selectors/authSelector';
-import { Container, Row, Image } from 'react-bootstrap';
-import ModalForm from './components/ModalForm';
-import moment from 'moment';
+import React from "react";
+import { useSelector } from "react-redux";
+import { Redirect } from "react-router-dom";
+import { getUserSelector } from "../../redux/selectors/authSelector";
+import ModalForm from "./components/ModalForm";
+import moment from "moment";
 
 function Profile() {
   const user = useSelector(getUserSelector);
@@ -14,29 +13,37 @@ function Profile() {
   }
 
   return (
-    <main className="flex-shrink-0">
-      <Container className="w-60">
-        <Row>
-          <h3 className="text-center">PERSONAL INFORMATION</h3>
-        </Row>
-        <div className="d-flex flex-column align-items-center mt-2">
-          <Image className="img-cover rounded-circle" src={user.avatar} width={180} height={180} />
+    <main className="flex-shrink-0 min-h-screen flex flex-col items-center pt-10 bg-gray-50">
+      <div className="w-full max-w-3xl bg-white p-6 rounded-lg shadow-md">
+        <h3 className="text-center text-2xl font-semibold mb-4">PERSONAL INFORMATION</h3>
+
+        <div className="flex flex-col items-center mb-4">
+          <img
+            className="w-44 h-44 rounded-full object-cover"
+            src={user.avatar}
+            alt={user.fullname}
+          />
         </div>
-        <div className="d-flex justify-content-center mt-2">
-          <div className="me-4">
-            <div>Full Name: {user.fullname}</div>
-            <div>Email: {user.email}</div>
+
+        <div className="flex justify-center gap-12 mb-2 text-gray-700">
+          <div className="space-y-1">
+            <div><span className="font-medium">Full Name:</span> {user.fullname}</div>
+            <div><span className="font-medium">Email:</span> {user.email}</div>
           </div>
-          <div className="ms-4">
-            <div>Birthday: {moment(user.birthday).format('DD/MM/YYYY')}</div>
-            <div>Phone: {user.phone}</div>
+          <div className="space-y-1">
+            <div><span className="font-medium">Birthday:</span> {moment(user.birthday).format("DD/MM/YYYY")}</div>
+            <div><span className="font-medium">Phone:</span> {user.phone}</div>
           </div>
         </div>
-        <div className="text-center">Address: {user.address}</div>
-        <div className="text-center mt-2">
+
+        <div className="text-center text-gray-700 mb-4">
+          <span className="font-medium">Address:</span> {user.address}
+        </div>
+
+        <div className="flex justify-center mt-4">
           <ModalForm data={user} isShow={false} />
         </div>
-      </Container>
+      </div>
     </main>
   );
 }
