@@ -1,16 +1,16 @@
 import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, Redirect, useHistory } from "react-router-dom";
+import { Link, useNavigate, Navigate } from "react-router-dom";
 import moment from "moment";
-import { registerAction } from "../../../redux/actions/authActions";
+import { registerAction } from "../../redux/actions/authActions";
 
 const Register = () => {
   const { register, handleSubmit } = useForm();
   const email = useSelector((state) => state.auth.email);
   const user = useSelector((state) => state.auth.user);
   const dispatch = useDispatch();
-  const history = useHistory();
+  const navigate = useNavigate();
 
   const onSubmit = (data) => {
     data.birthday = moment(data.birthday).format("YYYY-MM-DD");
@@ -25,12 +25,13 @@ const Register = () => {
 
   useEffect(() => {
     if (email) {
-      history.push("/enter-code", [email, false]);
+      navigate("/enter-code", { state: [email, false] });
     }
-  }, [history, email]);
+  }, [navigate, email]);
 
+  // React Router v6 replacement for Redirect
   if (user) {
-    return <Redirect to="/" />;
+    return <Navigate to="/" replace />;
   }
 
   return (

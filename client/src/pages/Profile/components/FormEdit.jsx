@@ -1,30 +1,27 @@
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
-import { Form, Row, Col, Image } from 'react-bootstrap';
 import moment from 'moment';
 import { updateProfileAction } from '../../../redux/actions/authActions';
 
-function FormEdit(props) {
-  const user = props.data;
+function FormEdit({ data: user, handleClose }) {
   const [picture, setPicture] = useState(user?.avatar || null);
-
   const { register, handleSubmit } = useForm();
   const dispatch = useDispatch();
 
-  const onSubmitData = (data) => {
+  const onSubmitData = (formData) => {
     let bodyFormData = new FormData();
 
-    Object.keys(data).forEach((key) => {
+    Object.keys(formData).forEach((key) => {
       if (key === 'avatar') {
-        bodyFormData.append(key, data[key][0]);
+        bodyFormData.append(key, formData[key][0]);
       } else {
-        bodyFormData.append(key, data[key]);
+        bodyFormData.append(key, formData[key]);
       }
     });
 
     dispatch(updateProfileAction(bodyFormData));
-    props.handleClose();
+    handleClose();
   };
 
   const onChangePicture = (e) => {
@@ -40,79 +37,73 @@ function FormEdit(props) {
   };
 
   return (
-    <Form id="form-edit" onSubmit={handleSubmit(onSubmitData)}>
-      <div className="d-flex flex-column align-items-center">
-        <Image
-          className="img-cover rounded-circle"
+    <form onSubmit={handleSubmit(onSubmitData)} className="space-y-4">
+      {/* Avatar */}
+      <div className="flex flex-col items-center">
+        <img
           src={picture}
-          width={180}
-          height={180}
+          alt="avatar"
+          className="w-44 h-44 rounded-full object-cover"
         />
-        <Form.Group className="mt-3">
-          <Form.Control
-            type="file"
-            accept="image/*"
-            {...register('avatar')}
-            onChange={(e) => {
-              register('avatar').onChange(e);
-              onChangePicture(e);
-            }}
-          />
-        </Form.Group>
+        <input
+          type="file"
+          accept="image/*"
+          {...register('avatar')}
+          onChange={(e) => {
+            register('avatar').onChange(e);
+            onChangePicture(e);
+          }}
+          className="mt-3"
+        />
       </div>
 
-      <Row className="mt-3">
-        <Col>
-          <Form.Group>
-            <Form.Label className="form-group required control-label">
-              Full Name
-            </Form.Label>
-            <Form.Control
+      {/* Name & Email */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div className="space-y-3">
+          <div>
+            <label className="block font-medium">Full Name</label>
+            <input
               type="text"
               defaultValue={user?.fullname || ''}
               {...register('fullname')}
               autoComplete="fullname"
               required
+              className="w-full border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-red-500"
             />
-          </Form.Group>
+          </div>
 
-          <Form.Group className="mt-3">
-            <Form.Label className="form-group required control-label">
-              Email
-            </Form.Label>
-            <Form.Control
+          <div>
+            <label className="block font-medium">Email</label>
+            <input
               type="email"
               defaultValue={user?.email || ''}
               {...register('email')}
               autoComplete="email"
               required
+              className="w-full border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-red-500"
             />
-          </Form.Group>
-        </Col>
+          </div>
+        </div>
 
-        <Col>
-          <Form.Group>
-            <Form.Label className="form-group required control-label">
-              Birthday
-            </Form.Label>
-            <Form.Control
+        {/* Birthday & Phone */}
+        <div className="space-y-3">
+          <div>
+            <label className="block font-medium">Birthday</label>
+            <input
               type="date"
               defaultValue={
-                user?.birthday
-                  ? moment(user.birthday).format('YYYY-MM-DD')
-                  : ''
+                user?.birthday ? moment(user.birthday).format('YYYY-MM-DD') : ''
               }
               {...register('birthday')}
               autoComplete="birthday"
               required
+              className="w-full border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-red-500"
             />
-          </Form.Group>
+          </div>
 
-          <Form.Group className="mt-3">
-            <Form.Label className="form-group required control-label">
-              Phone Number
-            </Form.Label>
-            <Form.Control
+          <div>
+            <label className="block font-medium">Phone Number</label>
+            <input
               type="text"
               maxLength="10"
               onInput={isNumber}
@@ -120,26 +111,25 @@ function FormEdit(props) {
               {...register('phone')}
               autoComplete="phone"
               required
+              className="w-full border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-red-500"
             />
-          </Form.Group>
-        </Col>
-      </Row>
+          </div>
+        </div>
+      </div>
 
-      <Row>
-        <Form.Group className="mt-3">
-          <Form.Label className="form-group required control-label">
-            Address
-          </Form.Label>
-          <Form.Control
-            type="text"
-            defaultValue={user?.address || ''}
-            {...register('address')}
-            autoComplete="address"
-            required
-          />
-        </Form.Group>
-      </Row>
-    </Form>
+      {/* Address */}
+      <div>
+        <label className="block font-medium">Address</label>
+        <input
+          type="text"
+          defaultValue={user?.address || ''}
+          {...register('address')}
+          autoComplete="address"
+          required
+          className="w-full border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-red-500"
+        />
+      </div>
+    </form>
   );
 }
 

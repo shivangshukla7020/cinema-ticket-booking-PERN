@@ -1,10 +1,10 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getUserSelector } from "../../../redux/selectors/authSelector";
-import { Redirect, useNavigate } from "react-router-dom";
+import { getUserSelector } from "../../redux/selectors/authSelector";
+import { Navigate, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
-import { changePasswordAction } from "../../../redux/actions/authActions";
+import { changePasswordAction } from "../../redux/actions/authActions";
 
 const ChangePassword = () => {
   const user = useSelector(getUserSelector);
@@ -21,7 +21,8 @@ const ChangePassword = () => {
   };
 
   if (!user) {
-    return <Redirect to="/login" />;
+    // React Router v6 replacement for Redirect
+    return <Navigate to="/login" replace />;
   }
 
   return (

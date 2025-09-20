@@ -1,11 +1,12 @@
 import React from "react";
-import { Redirect } from "react-router-dom";
+import { Navigate, useLocation } from "react-router-dom";
 
-function VerifiedEmail(props) {
-  const isVerified = props.location.state;
+function VerifiedEmail() {
+  const location = useLocation();
+  const isVerified = location.state;
 
   if (!isVerified) {
-    return <Redirect to="/" />;
+    return <Navigate to="/" replace />;
   }
 
   return (

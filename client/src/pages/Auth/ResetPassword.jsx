@@ -1,35 +1,34 @@
 import React, { useEffect } from "react";
-import { Redirect, useHistory } from "react-router-dom";
+import { useNavigate, Navigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-hot-toast";
-import { resetPasswordAction } from "../../../redux/actions/authActions";
+import { resetPasswordAction } from "../../redux/actions/authActions";
 
 const ResetPassword = (props) => {
-  const isVerifyCodeResetPassword = props.location.state;
+  const isVerifyCodeResetPassword = props.location?.state;
   const { register, handleSubmit } = useForm();
   const isReset = useSelector((state) => state.auth.isReset);
   const dispatch = useDispatch();
-  const history = useHistory();
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (isReset) {
       toast.success("Password reset successfully!");
-      history.push("/");
+      navigate("/", { replace: true });
     }
-  }, [history, isReset]);
+  }, [navigate, isReset]);
 
   const onSubmit = (data) => {
     if (data.password !== data.confirmPassword) {
       toast.error("Passwords do not match!");
     } else {
-      console.log("Call API");
       dispatch(resetPasswordAction(data));
     }
   };
 
   if (!isVerifyCodeResetPassword) {
-    return <Redirect to="/" />;
+    return <Navigate to="/" replace />;
   }
 
   return (

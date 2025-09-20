@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import FormData from './FormData';
+import FormData from './FormEdit';
 
 function ModalForm({ data, isShow }) {
   const [show, setShow] = useState(isShow || false);

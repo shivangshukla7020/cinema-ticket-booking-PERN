@@ -1,17 +1,16 @@
-import CryptoJS from 'crypto-js';
-import moment from 'moment';
-import React, { useEffect, useState } from 'react';
-import { Col, Container, Form, Image, Row } from 'react-bootstrap';
-import { useDispatch, useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
-import Select from 'react-select';
-import { getAllCineplexsAction } from '../../redux/actions/cineplexActions';
+import CryptoJS from "crypto-js";
+import moment from "moment";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
+import Select from "react-select";
+import { getAllCineplexsAction } from "../redux/actions/cineplexActions";
 import {
   changeDayShowtimeAction,
   getAllShowtimesByCineplexAction,
-} from '../../redux/actions/showtimeActions';
-import { getCineplexsSelector } from '../../redux/selectors/cineplexSelector';
-import { getAllShowtimesByCineplexSelector } from '../../redux/selectors/showtimeSelector';
+} from "../redux/actions/showtimeActions";
+import { getCineplexsSelector } from "../redux/selectors/cineplexSelector";
+import { getAllShowtimesByCineplexSelector } from "../redux/selectors/showtimeSelector";
 
 function Showtime() {
   const cineplexs = useSelector(getCineplexsSelector);
@@ -30,8 +29,8 @@ function Showtime() {
     dispatch(getAllCineplexsAction());
 
     return () => {
-      dispatch({ type: 'REMOVE_CINEPLEXS' });
-      dispatch({ type: 'REMOVE_ALL_SHOWTIMES' });
+      dispatch({ type: "REMOVE_CINEPLEXS" });
+      dispatch({ type: "REMOVE_ALL_SHOWTIMES" });
     };
   }, [dispatch]);
 
@@ -46,138 +45,113 @@ function Showtime() {
 
   return (
     <main className="flex-shrink-0">
-      <Container className="w-4/5 mx-auto">
-        <Row>
-          <h3 className="text-center text-2xl font-bold my-4">SHOWTIMES</h3>
-        </Row>
+      <div className="max-w-6xl mx-auto px-4">
+        <h3 className="text-center text-2xl font-bold my-6">SHOWTIMES</h3>
 
         {/* Cineplex Selector */}
-        <Row className="mb-4 px-36">
-          <Form.Group>
-            <Form.Label className="font-medium">Select Cineplex</Form.Label>
-            <Select
-              placeholder="CGV Cinemas"
-              options={options}
-              onChange={handleChangeCineplexId}
-              theme={(theme) => ({
-                ...theme,
-                colors: {
-                  ...theme.colors,
-                  primary25: '#d4d4d4',
-                  primary: '#e71a0f',
-                },
-              })}
-            />
-          </Form.Group>
-        </Row>
+        <div className="mb-6">
+          <label className="block font-medium mb-2">Select Cineplex</label>
+          <Select
+            placeholder="CGV Cinemas"
+            options={options}
+            onChange={handleChangeCineplexId}
+            theme={(theme) => ({
+              ...theme,
+              colors: { ...theme.colors, primary25: "#d4d4d4", primary: "#e71a0f" },
+            })}
+          />
+        </div>
 
-        <Row className="px-36">
-          <hr className="my-2" />
-        </Row>
+        <hr className="my-4" />
 
         {/* Days Selector */}
-        <Row className="mt-3 px-36">
+        <div className="mb-6">
           <div className="font-semibold mb-2">{message}</div>
-          {data.length > 0 && (
-            <Form.Group>
-              <div className="flex flex-wrap gap-2">
-                {data.map((item, i) => {
-                  const day = moment(item.date, 'DD/MM/YYYY').toDate();
-                  const isActive = activeDayIndex === i;
+          <div className="flex flex-wrap gap-3">
+            {data.map((item, i) => {
+              const day = moment(item.date, "DD/MM/YYYY").toDate();
+              const isActive = activeDayIndex === i;
 
-                  return (
-                    <div
-                      key={i}
-                      onClick={() =>
-                        handleDayClick({ id: i, value: moment(day).format('DD/MM/YYYY') }, i)
-                      }
-                      className={`cursor-pointer p-2 rounded-lg border ${
-                        isActive ? 'bg-red-500 text-white border-red-500' : 'bg-gray-100 border-gray-300'
-                      }`}
-                    >
-                      <span className="block text-center">{moment(day).format('M')}</span>
-                      <em className="block text-center">{moment(day).format('ddd')}</em>
-                      <strong className="block text-center">{moment(day).format('D')}</strong>
-                    </div>
-                  );
-                })}
-              </div>
-            </Form.Group>
-          )}
-        </Row>
+              return (
+                <div
+                  key={i}
+                  onClick={() =>
+                    handleDayClick({ id: i, value: moment(day).format("DD/MM/YYYY") }, i)
+                  }
+                  className={`cursor-pointer p-3 rounded-lg border text-center ${
+                    isActive
+                      ? "bg-red-500 text-white border-red-500"
+                      : "bg-gray-100 text-gray-800 border-gray-300"
+                  }`}
+                >
+                  <span className="block">{moment(day).format("M")}</span>
+                  <em className="block">{moment(day).format("ddd")}</em>
+                  <strong className="block">{moment(day).format("D")}</strong>
+                </div>
+              );
+            })}
+          </div>
+        </div>
 
-        <Row className="px-36 mt-3">
-          <hr className="my-2" />
-        </Row>
+        <hr className="my-4" />
 
         {/* Movies & Showtimes */}
         {movies.length > 0 &&
           movies.map((movie, i) => {
-            const url = '/movies/detail/' + movie.slug;
+            const url = "/movies/detail/" + movie.slug;
 
             return (
-              <React.Fragment key={i}>
-                <Row className="mt-6 px-36">
-                  <Col md={3} className="px-3">
-                    <Link to={url}>
-                      <Image
-                        className="rounded-lg object-cover w-full"
-                        src={movie.poster}
-                        height={300}
-                      />
-                    </Link>
-                  </Col>
+              <div key={i} className="mb-8">
+                <div className="flex flex-col md:flex-row gap-4">
+                  {/* Movie Poster */}
+                  <Link to={url} className="md:w-1/4">
+                    <img
+                      src={movie.poster}
+                      alt={movie.title}
+                      className="rounded-lg object-cover w-full h-72"
+                    />
+                  </Link>
 
-                  <Col className="px-0">
+                  {/* Movie Info & Showtimes */}
+                  <div className="flex-1">
                     <Link to={url}>
-                      <div className="mb-2">
-                        <h5 className="font-bold">{movie.title}</h5>
-                      </div>
+                      <h5 className="font-bold mb-2">{movie.title}</h5>
                     </Link>
-                    <hr className="my-1" />
+                    <hr className="my-2" />
 
                     {movie.showtimes.map((showtime, s) => (
-                      <React.Fragment key={s}>
-                        <div className={s === 0 ? '' : 'mt-3'}>
-                          <h6 className="font-semibold">
-                            {showtime.type_name === '2D'
-                              ? showtime.type_name + ' – Vietnamese Subtitles'
-                              : showtime.type_name}
-                          </h6>
-                        </div>
+                      <div key={s} className={s !== 0 ? "mt-4" : ""}>
+                        <h6 className="font-semibold mb-2">
+                          {showtime.type_name === "2D"
+                            ? showtime.type_name + " – Vietnamese Subtitles"
+                            : showtime.type_name}
+                        </h6>
+                        <div className="flex flex-wrap gap-2">
+                          {showtime.list.map((item, l) => {
+                            const hashId =
+                              CryptoJS.MD5(item.start_time).toString() + item.id;
 
-                        <div>
-                          <div className="flex flex-wrap gap-2">
-                            {showtime.list.map((item, l) => {
-                              const hashId =
-                                CryptoJS.MD5(item.start_time).toString() + item.id;
-
-                              return (
-                                <Link
-                                  to={`/booking/tickets/${hashId}`}
-                                  key={l}
-                                  className="text-link"
-                                >
-                                  <div className="px-3 py-1 border rounded-md cursor-pointer hover:bg-gray-200">
-                                    {moment(item.start_time).format('HH:mm A')}
-                                  </div>
-                                </Link>
-                              );
-                            })}
-                          </div>
+                            return (
+                              <Link
+                                key={l}
+                                to={`/booking/tickets/${hashId}`}
+                                className="px-3 py-1 border rounded-md cursor-pointer hover:bg-gray-200"
+                              >
+                                {moment(item.start_time).format("HH:mm A")}
+                              </Link>
+                            );
+                          })}
                         </div>
-                      </React.Fragment>
+                      </div>
                     ))}
-                  </Col>
-                </Row>
+                  </div>
+                </div>
 
-                <Row className="px-36 mt-6">
-                  <hr className="my-2" />
-                </Row>
-              </React.Fragment>
+                <hr className="my-6" />
+              </div>
             );
           })}
-      </Container>
+      </div>
     </main>
   );
 }

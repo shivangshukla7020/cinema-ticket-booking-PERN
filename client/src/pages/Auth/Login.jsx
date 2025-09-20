@@ -1,15 +1,15 @@
 import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, Redirect, useHistory } from "react-router-dom";
-import { loginAction } from "../../../redux/actions/authActions";
+import { Link, useNavigate } from "react-router-dom";
+import { loginAction } from "../../redux/actions/authActions";
 
 const Login = () => {
   const { register, handleSubmit } = useForm();
   const isLogined = useSelector((state) => state.auth.isLogined);
   const user = useSelector((state) => state.auth.user);
   const dispatch = useDispatch();
-  const history = useHistory();
+  const navigate = useNavigate();
 
   const onSubmit = (data) => {
     dispatch(loginAction(data));
@@ -17,12 +17,13 @@ const Login = () => {
 
   useEffect(() => {
     if (isLogined) {
-      history.push("/");
+      navigate("/", { replace: true });
     }
-  }, [history, isLogined]);
+  }, [navigate, isLogined]);
 
+  // React Router v6 replacement for Redirect
   if (user) {
-    return <Redirect to="/" />;
+    return <Navigate to="/" replace />;
   }
 
   return (

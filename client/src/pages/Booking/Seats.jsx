@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getShowtimeSeatsSelector } from '../../../../redux/selectors/showtimeSelector';
-import { getShowtimeSeatsAction } from '../../../../redux/actions/showtimeActions';
-import { updateBookingAction } from '../../../../redux/actions/bookingActions';
+import { getShowtimeSeatsSelector } from '../../redux/selectors/showtimeSelector';
+import { getShowtimeSeatsAction } from '../../redux/actions/showtimeActions';
+import { updateBookingAction } from '../../redux/actions/bookingActions';
 
 const seatStyle = {
   base: {

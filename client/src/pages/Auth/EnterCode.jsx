@@ -1,15 +1,17 @@
 import React, { useEffect } from "react";
-import { Redirect, useHistory } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate, useLocation } from "react-router-dom";
 import {
   verifyCodeResetPasswordAction,
   verifyEmailAction,
-} from "../../../redux/actions/authActions";
+} from "../../redux/actions/authActions";
 
-const EnterCode = (props) => {
-  const email = props.location.state ? props.location.state[0] : "";
-  const isForgotPassword = props.location.state ? props.location.state[1] : false;
+const EnterCode = () => {
+  const location = useLocation();
+  const state = location.state || [];
+  const email = state[0] || "";
+  const isForgotPassword = state[1] || false;
 
   const { register, handleSubmit } = useForm();
   const isVerified = useSelector((state) => state.auth.isVerified);
@@ -17,10 +19,12 @@ const EnterCode = (props) => {
     (state) => state.auth.isVerifyCodeResetPassword
   );
   const dispatch = useDispatch();
-  const history = useHistory();
+  const navigate = useNavigate();
 
   const handleNumberInput = (e) => {
-    e.target.value = e.target.value.replace(/[^0-9.]/g, "").replace(/(\..*?)\..*/g, "$1");
+    e.target.value = e.target.value
+      .replace(/[^0-9.]/g, "")
+      .replace(/(\..*?)\..*/g, "$1");
   };
 
   const onSubmitVerifyEmail = (data) => {
@@ -38,18 +42,18 @@ const EnterCode = (props) => {
 
   useEffect(() => {
     if (isVerified) {
-      history.push("/verified-email", isVerified);
+      navigate("/verified-email", { state: isVerified });
     }
-  }, [history, isVerified]);
+  }, [navigate, isVerified]);
 
   useEffect(() => {
     if (isVerifyCodeResetPassword) {
-      history.push("/reset-password", isVerifyCodeResetPassword);
+      navigate("/reset-password", { state: isVerifyCodeResetPassword });
     }
-  }, [history, isVerifyCodeResetPassword]);
+  }, [navigate, isVerifyCodeResetPassword]);
 
   if (!email) {
-    return <Redirect to="/" />;
+    return <Navigate to="/" replace />;
   }
 
   return (

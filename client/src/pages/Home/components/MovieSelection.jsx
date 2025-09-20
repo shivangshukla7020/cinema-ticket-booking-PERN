@@ -3,23 +3,28 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/pagination';
 import 'swiper/css/navigation';
-import { Autoplay, Pagination, Navigation } from 'swiper';
-import { useDispatch, useSelector } from 'react-redux';
-import { getMoviesSelector } from '../../../../redux/selectors/movieSelector';
-import { getAllMoviesByStateAction } from '../../../../redux/actions/movieActions';
+// Fixed imports for Swiper v8+
+import { Autoplay } from 'swiper/modules';
+import { Pagination } from 'swiper/modules';
+import { Navigation } from 'swiper/modules';
+
+import { useSelector, useDispatch } from 'react-redux';
+import { getMoviesSelector } from '../../../redux/selectors/movieSelector';
+import { getAllMoviesByStateAction } from '../../../redux/actions/movieActions';
 import { Link } from 'react-router-dom';
 
 function MovieSelection() {
-  const movies = useSelector(getMoviesSelector);
+  const movies = useSelector(getMoviesSelector) || [];
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(getAllMoviesByStateAction({ state: 'now-showing' }));
-
     return () => {
       dispatch({ type: 'REMOVE_MOVIES' });
     };
   }, [dispatch]);
+
+  if (!movies.length) return null;
 
   return (
     <div className="text-center mt-6">
@@ -29,32 +34,29 @@ function MovieSelection() {
         className="mx-auto mb-4"
       />
 
-      <div className="container mx-auto px-0">
-        <Swiper
-          modules={[Autoplay, Pagination, Navigation]}
-          slidesPerView={4}
-          spaceBetween={6}
-          slidesPerGroup={1}
-          autoplay={{ delay: 1500, disableOnInteraction: false }}
-          loop={true}
-          loopFillGroupWithBlank={true}
-          pagination={{ clickable: true }}
-          navigation={true}
-          className="w-3/4 mx-auto"
-        >
-          {movies.map((movie, i) => (
-            <SwiperSlide key={i} className="flex justify-center">
-              <Link to={`/movies/detail/${movie.slug}`}>
-                <img
-                  src={movie.poster}
-                  alt={movie.title}
-                  className="w-[240px] h-[355px] object-cover rounded-md cursor-pointer"
-                />
-              </Link>
-            </SwiperSlide>
-          ))}
-        </Swiper>
-      </div>
+      <Swiper
+        modules={[Autoplay, Pagination, Navigation]}
+        slidesPerView={4}
+        spaceBetween={6}
+        slidesPerGroup={1}
+        autoplay={{ delay: 1500, disableOnInteraction: false }}
+        loop={true}
+        pagination={{ clickable: true }}
+        navigation={true}
+        className="w-3/4 mx-auto"
+      >
+        {movies.map((movie, i) => (
+          <SwiperSlide key={i} className="flex justify-center">
+            <Link to={`/movies/detail/${movie.slug}`}>
+              <img
+                src={movie.poster}
+                alt={movie.title}
+                className="w-[240px] h-[355px] object-cover rounded-md cursor-pointer"
+              />
+            </Link>
+          </SwiperSlide>
+        ))}
+      </Swiper>
     </div>
   );
 }

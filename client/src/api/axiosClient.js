@@ -2,7 +2,7 @@ import axios from 'axios';
 import queryString from 'query-string';
 
 const axiosClient = axios.create({
-  baseURL: process.env.REACT_APP_API_URL,
+  baseURL: import.meta.env.VITE_API_URL, // Use import.meta.env instead of process.env
   withCredentials: true,
   headers: {
     'Access-Control-Allow-Origin': '*',
@@ -25,7 +25,6 @@ axiosClient.interceptors.response.use(
     return response;
   },
   (error) => {
-    // Handle errors
     return Promise.reject(error);
   }
 );

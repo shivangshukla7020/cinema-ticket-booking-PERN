@@ -1,8 +1,7 @@
-import React, { useEffect, useState, memo } from 'react';
-import { Container, Row, Image } from 'react-bootstrap';
-import { useDispatch, useSelector } from 'react-redux';
-import { getAllCineplexsAction, getCineplexItemAction } from '../../redux/actions/cineplexActions';
-import { getCineplexsSelector } from './../../redux/selectors/cineplexSelector';
+import React, { useEffect, useState, memo } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { getAllCineplexsAction, getCineplexItemAction } from "../redux/actions/cineplexActions";
+import { getCineplexsSelector } from "../redux/selectors/cineplexSelector";
 
 function Cineplex() {
   const cineplexs = useSelector(getCineplexsSelector);
@@ -16,73 +15,68 @@ function Cineplex() {
 
   const GoogleMapIframe = memo(({ src }) => (
     <iframe
-      title={cineplexs.item.name}
+      title={cineplexs.item?.name}
       allowFullScreen
       width="100%"
       height="333"
       loading="lazy"
       src={src}
-      style={{ border: '0' }}
+      className="border-0 rounded"
     />
   ));
 
   useEffect(() => {
     dispatch(getAllCineplexsAction());
     return () => {
-      dispatch({ type: 'REMOVE_CINEPLEXS' });
+      dispatch({ type: "REMOVE_CINEPLEXS" });
     };
   }, [dispatch]);
 
   return (
     <main className="flex-shrink-0">
-      <Container className="w-75">
-        <Row>
-          <h3 className="text-center">CGV CINEMAS</h3>
-        </Row>
-        <Row>
-          <div className="d-flex flex-wrap mt-2">
-            {cineplexs.data.map((cineplex) => (
-              <div key={cineplex.id} className="w-25">
-                <span
-                  onClick={() => onCineplexSelectionChanged(cineplex.id)}
-                  style={{
-                    cursor: 'pointer',
-                    padding: '6px 12px',
-                    margin: '4px',
-                    display: 'inline-block',
-                    borderRadius: '4px',
-                    backgroundColor: selectedId === cineplex.id ? '#e71a0f' : 'transparent',
-                    color: selectedId === cineplex.id ? '#fff' : '#000',
-                    fontWeight: selectedId === cineplex.id ? 600 : 400,
-                    transition: '0.2s all',
-                  }}
-                >
-                  {cineplex.name}
-                </span>
-              </div>
-            ))}
-          </div>
-        </Row>
+      <div className="max-w-6xl mx-auto px-4">
+        <h3 className="text-center text-2xl font-bold my-6">CGV CINEMAS</h3>
 
+        {/* Cineplex list */}
+        <div className="flex flex-wrap gap-2 justify-center mb-6">
+          {cineplexs.data?.map((cineplex) => (
+            <button
+              key={cineplex.id}
+              onClick={() => onCineplexSelectionChanged(cineplex.id)}
+              className={`px-4 py-2 rounded transition-all duration-200 font-medium ${
+                selectedId === cineplex.id
+                  ? "bg-red-500 text-white font-semibold"
+                  : "bg-gray-100 text-gray-800 hover:bg-gray-200"
+              }`}
+            >
+              {cineplex.name}
+            </button>
+          ))}
+        </div>
+
+        {/* Selected Cineplex details */}
         {cineplexs.item && Object.keys(cineplexs.item).length > 0 && (
-          <Row>
-            <div className="text-center mt-4">
-              <img
-                src="https://www.cgv.vn/skin/frontend/cgv/default/images/h3_theater.gif"
-                alt="h3_theater"
-              />
-              <h3 className="mt-4">{cineplexs.item.name}</h3>
-              <h6 className="mt-1">{cineplexs.item.address}</h6>
-            </div>
-            <div>
-              <Image className="cineplex-img" src={cineplexs.item.image} />
-            </div>
-            <div className="text-center mt-1">
+          <div className="text-center space-y-4">
+            <img
+              src="https://www.cgv.vn/skin/frontend/cgv/default/images/h3_theater.gif"
+              alt="h3_theater"
+              className="mx-auto"
+            />
+            <h3 className="text-xl font-bold">{cineplexs.item.name}</h3>
+            <h6 className="text-gray-600">{cineplexs.item.address}</h6>
+
+            <img
+              src={cineplexs.item.image}
+              alt={cineplexs.item.name}
+              className="mx-auto rounded-lg"
+            />
+
+            <div className="mt-4">
               <GoogleMapIframe src={cineplexs.item.googleMapsUrl} />
             </div>
-          </Row>
+          </div>
         )}
-      </Container>
+      </div>
     </main>
   );
 }
