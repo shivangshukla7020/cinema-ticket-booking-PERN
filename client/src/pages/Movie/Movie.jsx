@@ -1,13 +1,13 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useParams, Redirect, Link } from 'react-router-dom';
+import { useParams, Navigate, Link } from 'react-router-dom';
 import { getAllMoviesByStateAction } from '../../redux/actions/movieActions';
 import { getMoviesSelector } from '../../redux/selectors/movieSelector';
 import moment from 'moment';
 
 function Movie() {
   const { state } = useParams();
-  const movies = useSelector(getMoviesSelector);
+  const movies = useSelector(getMoviesSelector) || [];
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -18,8 +18,9 @@ function Movie() {
     };
   }, [dispatch, state]);
 
+  // Replace Redirect with Navigate
   if (state !== 'now-showing' && state !== 'coming-soon') {
-    return <Redirect to="/movies/now-showing" />;
+    return <Navigate to="/movies/now-showing" replace />;
   }
 
   const MovieList = React.memo(({ data }) => (

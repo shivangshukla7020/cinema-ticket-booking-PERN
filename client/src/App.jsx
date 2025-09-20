@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { Toaster } from 'react-hot-toast';
 import Header from './components/Header';
 import Footer from './components/Footer';
@@ -24,36 +24,36 @@ import NotFound from './pages/NotFound';
 
 function App() {
   return (
-    <>
+    <div className="flex flex-col min-h-screen">
       <Toaster position="top-right" />
       <Router>
         <Header />
         <main className="flex-grow">
-          <Switch>
-            <Redirect exact from="/movies" to="/movies/now-showing" />
-            <Route exact path="/" component={HomePage} />
-            <Route exact path="/movies/:state" component={MoviePage} />
-            <Route exact path="/cineplexs" component={CineplexPage} />
-            <Route exact path="/showtimes" component={ShowtimePage} />
-            <Route exact path="/movies/detail/:slug" component={MovieDetailPage} />
-            <Route exact path="/booking/tickets/:showtimeId" component={BookingPage} />
-            <Route exact path="/payment" component={PaymentPage} />
-            <Route exact path="/payment/:id" component={PaymentDetailPage} />
-            <Route exact path="/profile" component={ProfilePage} />
-            <Route exact path="/history" component={HistoryPage} />
-            <Route exact path="/login" component={LoginPage} />
-            <Route exact path="/register" component={RegisterPage} />
-            <Route exact path="/enter-code" component={EnterCode} />
-            <Route exact path="/verified-email" component={VerifiedEmail} />
-            <Route exact path="/forgot-password" component={ForgotPassword} />
-            <Route exact path="/reset-password" component={ResetPassword} />
-            <Route exact path="/change-password" component={ChangePassword} />
-            <Route component={NotFound} />
-          </Switch>
+          <Routes>
+            {/* <Route path="/movies" element={<Navigate to="/movies/now-showing" replace />} /> */}
+            <Route path="/" element={<HomePage />} />
+            <Route path="/movies/:state" element={<MoviePage />} />
+            <Route path="/cineplexs" element={<CineplexPage />} />
+            <Route path="/showtimes" element={<ShowtimePage />} />
+            <Route path="/movies/detail/:slug" element={<MovieDetailPage />} />
+            <Route path="/booking/tickets/:showtimeId" element={<BookingPage />} />
+            <Route path="/payment" element={<PaymentPage />} />
+            <Route path="/payment/:id" element={<PaymentDetailPage />} />
+            <Route path="/profile" element={<ProfilePage />} />
+            <Route path="/history" element={<HistoryPage />} />
+            <Route path="/login" element={<LoginPage />} />
+            <Route path="/register" element={<RegisterPage />} />
+            <Route path="/enter-code" element={<EnterCode />} />
+            <Route path="/verified-email" element={<VerifiedEmail />} />
+            <Route path="/forgot-password" element={<ForgotPassword />} />
+            <Route path="/reset-password" element={<ResetPassword />} />
+            <Route path="/change-password" element={<ChangePassword />} />
+            <Route path="*" element={<NotFound />} />
+          </Routes>
         </main>
         <Footer />
       </Router>
-    </>
+    </div>
   );
 }
 

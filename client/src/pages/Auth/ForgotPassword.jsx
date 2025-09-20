@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { useHistory, Redirect, Link } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import { forgotPasswordAction } from "../../redux/actions/authActions";
@@ -10,7 +10,7 @@ const ForgotPassword = () => {
   const user = useSelector((state) => state.auth.user);
   const isForgotPassword = true;
   const dispatch = useDispatch();
-  const history = useHistory();
+  const navigate = useNavigate();
 
   const onSubmit = (data) => {
     dispatch(forgotPasswordAction(data));
@@ -18,12 +18,12 @@ const ForgotPassword = () => {
 
   useEffect(() => {
     if (email) {
-      history.push("/enter-code", [email, isForgotPassword]);
+      navigate("/enter-code", { state: [email, isForgotPassword] });
     }
-  }, [history, email, isForgotPassword]);
+  }, [navigate, email, isForgotPassword]);
 
   if (user) {
-    return <Redirect to="/" />;
+    return <Navigate to="/" replace />;
   }
 
   return (

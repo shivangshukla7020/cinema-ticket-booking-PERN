@@ -1,6 +1,6 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import { Redirect } from "react-router-dom";
+import { Navigate } from "react-router-dom"; // <-- v6 change
 import { getUserSelector } from "../../redux/selectors/authSelector";
 import ModalForm from "./components/ModalForm";
 import moment from "moment";
@@ -8,8 +8,9 @@ import moment from "moment";
 function Profile() {
   const user = useSelector(getUserSelector);
 
+  // Redirect to login if user is not logged in
   if (!user) {
-    return <Redirect to="/login" />;
+    return <Navigate to="/login" replace />; // <-- v6 replacement
   }
 
   return (

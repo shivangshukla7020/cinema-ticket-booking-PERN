@@ -1,25 +1,25 @@
-import React, { useState } from 'react';
-import { useHistory, useLocation, Redirect } from 'react-router-dom';
-import Timer from './components/Timer';
-import moment from 'moment';
-import { useDispatch } from 'react-redux';
-import { createBookingAction } from '../../redux/actions/bookingActions';
+import moment from "moment";
+import React, { useState } from "react";
+import { useNavigate, useLocation, Navigate } from "react-router-dom";
+import Timer from "./components/Timer";
+import { useDispatch } from "react-redux";
+import { createBookingAction } from "../../redux/actions/bookingActions";
 
 function Payment() {
-  const history = useHistory();
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const location = useLocation();
-  const [valueRadio, setValueRadio] = useState('atm');
+  const [valueRadio, setValueRadio] = useState("atm");
 
   if (!location.state) {
-    return <Redirect to="/movies/now-showing" />;
+    return <Navigate to="/movies/now-showing" replace />;
   }
 
   const { user = {}, showtime = {}, booking = {} } = location.state;
 
-  const onPreviousButtonClick = () => history.goBack();
+  const onPreviousButtonClick = () => navigate(-1);
   const onPaymentButtonClick = () =>
-    dispatch(createBookingAction({ user, showtime, booking }, history));
+    dispatch(createBookingAction({ user, showtime, booking }, navigate));
   const onChangeRadioCheckbox = (e) => setValueRadio(e.target.value);
 
   return (
@@ -33,11 +33,36 @@ function Payment() {
             <h6 className="font-semibold mb-2">PAYMENT METHOD</h6>
 
             {[
-              { id: 'atm-card', label: 'ATM Card (Local)', value: 'atm', img: 'https://www.cgv.vn/media/catalog/product/placeholder/default/atm_icon.png' },
-              { id: 'visa-card', label: 'International Card (Visa, Master, Amex, JCB)', value: 'visa', img: 'https://www.cgv.vn/media/catalog/product/placeholder/default/visa-mastercard-icon.png' },
-              { id: 'momo-wallet', label: 'MoMo Wallet', value: 'momo', img: 'https://www.cgv.vn/media/catalog/product/placeholder/default/momo_icon.png' },
-              { id: 'zalo-pay', label: 'ZaloPay', value: 'zalo', img: 'https://www.cgv.vn/media/catalog/product/placeholder/default/zalopay_icon.png' },
-              { id: 'viettel-pay', label: 'ViettelPay', value: 'viettel', img: 'https://www.cgv.vn/media/catalog/product/placeholder/default/viettelpay-logo.jpg' },
+              {
+                id: "atm-card",
+                label: "ATM Card (Local)",
+                value: "atm",
+                img: "https://www.cgv.vn/media/catalog/product/placeholder/default/atm_icon.png",
+              },
+              {
+                id: "visa-card",
+                label: "International Card (Visa, Master, Amex, JCB)",
+                value: "visa",
+                img: "https://www.cgv.vn/media/catalog/product/placeholder/default/visa-mastercard-icon.png",
+              },
+              {
+                id: "momo-wallet",
+                label: "MoMo Wallet",
+                value: "momo",
+                img: "https://www.cgv.vn/media/catalog/product/placeholder/default/momo_icon.png",
+              },
+              {
+                id: "zalo-pay",
+                label: "ZaloPay",
+                value: "zalo",
+                img: "https://www.cgv.vn/media/catalog/product/placeholder/default/zalopay_icon.png",
+              },
+              {
+                id: "viettel-pay",
+                label: "ViettelPay",
+                value: "viettel",
+                img: "https://www.cgv.vn/media/catalog/product/placeholder/default/viettelpay-logo.jpg",
+              },
             ].map((method) => (
               <label
                 key={method.id}
@@ -72,7 +97,11 @@ function Payment() {
           </button>
 
           <div className="flex flex-1 items-center space-x-4">
-            <img src={showtime.Movie.poster} alt={showtime.Movie.title} className="w-24 h-36 object-cover" />
+            <img
+              src={showtime.Movie.poster}
+              alt={showtime.Movie.title}
+              className="w-24 h-36 object-cover"
+            />
             <div>
               <p className="font-bold">{showtime.Movie.title}</p>
               <p>{showtime.Movie.genre}</p>
@@ -82,19 +111,26 @@ function Payment() {
 
           <div className="flex flex-col space-y-1">
             <p>Cinema: {showtime.Cinema.Cineplex.name}</p>
-            <p>
-              Showtime: {moment(showtime.start_time).format('DD/MM/YYYY - HH:mm A')}
-            </p>
+            <p>Showtime: {moment(showtime.start_time).format("DD/MM/YYYY - HH:mm A")}</p>
             <p>Room: {showtime.Cinema.name}</p>
             {booking.seats.length > 0 && (
               <>
                 <p>
-                  Price: {booking.seats.length} x {new Intl.NumberFormat('en-US', { style: 'currency', currency: 'VND' }).format(showtime.price)}
+                  Price: {booking.seats.length} x{" "}
+                  {new Intl.NumberFormat("en-US", {
+                    style: "currency",
+                    currency: "VND",
+                  }).format(showtime.price)}
                 </p>
-                <p>Seats: {booking.seats.join(', ')}</p>
+                <p>Seats: {booking.seats.join(", ")}</p>
               </>
             )}
-            <p className="font-bold">Total: {new Intl.NumberFormat('en-US', { style: 'currency', currency: 'VND' }).format(booking.total)}</p>
+            <p className="font-bold">
+              Total:{" "}
+              {new Intl.NumberFormat("en-US", { style: "currency", currency: "VND" }).format(
+                booking.total
+              )}
+            </p>
           </div>
 
           <button onClick={onPaymentButtonClick} className="text-green-600 hover:text-green-800">

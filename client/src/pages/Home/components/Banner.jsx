@@ -2,52 +2,43 @@ import React, { useState, useEffect } from 'react';
 
 function Banner() {
   const banners = [
-    'https://www.cgv.vn/media/banner/cache/1/b58515f018eb873dafa430b6f9ae0c1e/x/e/xem_phim_web_980x448.jpg',
-    'https://www.cgv.vn/media/banner/cache/1/b58515f018eb873dafa430b6f9ae0c1e/c/g/cgv-tarot-series-2-980x448.jpg',
-    'https://www.cgv.vn/media/banner/cache/1/b58515f018eb873dafa430b6f9ae0c1e/c/g/cgv-digital-team-diy-980x448.jpg',
-    'https://www.cgv.vn/media/banner/cache/1/b58515f018eb873dafa430b6f9ae0c1e/c/g/cgv-production-team-midnite-streetfood-980x448_3.jpg',
-    'https://www.cgv.vn/media/banner/cache/1/b58515f018eb873dafa430b6f9ae0c1e/9/8/980x448_1__10.jpg',
-    'https://www.cgv.vn/media/banner/cache/1/b58515f018eb873dafa430b6f9ae0c1e/9/8/980x448_18_.jpg',
-    'https://www.cgv.vn/media/banner/cache/1/b58515f018eb873dafa430b6f9ae0c1e/d/u/du_an_phim_ngan_cj.jpg',
-    'https://www.cgv.vn/media/banner/cache/1/b58515f018eb873dafa430b6f9ae0c1e/u/e/uefxcgv_980x448.jpg',
+    'https://images.unsplash.com/photo-1598899134739-0e96ff12f1da?auto=format&fit=crop&w=980&q=80',
+    'https://images.unsplash.com/photo-1608897013036-0bcd1e2d5d6c?auto=format&fit=crop&w=980&q=80',
+    'https://images.unsplash.com/photo-1610878180933-659aaf26cabc?auto=format&fit=crop&w=980&q=80',
+    'https://images.unsplash.com/photo-1581905764498-5c1f58a8f3b2?auto=format&fit=crop&w=980&q=80',
   ];
 
   const [currentIndex, setCurrentIndex] = useState(0);
 
-  // Auto-slide every 3 seconds
   useEffect(() => {
     const interval = setInterval(() => {
-      setCurrentIndex((prevIndex) => (prevIndex + 1) % banners.length);
+      setCurrentIndex((prev) => (prev + 1) % banners.length);
     }, 3000);
-
     return () => clearInterval(interval);
   }, [banners.length]);
 
   return (
     <div className="relative w-full overflow-hidden">
-      {/* Slides */}
       <div className="relative w-full h-72 md:h-96">
-        {banners.map((url, index) => (
+        {banners.map((url, i) => (
           <img
-            key={index}
+            key={i}
             src={url}
-            alt={`slide-${index}`}
+            alt={`banner-${i}`}
             className={`absolute top-0 left-1/2 transform -translate-x-1/2 transition-opacity duration-1000 w-4/5 h-3/4 object-cover rounded-lg ${
-              index === currentIndex ? 'opacity-100 z-10' : 'opacity-0 z-0'
+              i === currentIndex ? 'opacity-100 z-10' : 'opacity-0 z-0'
             }`}
           />
         ))}
       </div>
-
-      {/* Indicators */}
       <div className="absolute bottom-2 left-1/2 transform -translate-x-1/2 flex space-x-2">
-        {banners.map((_, index) => (
+        {banners.map((_, i) => (
           <button
-            key={index}
+            key={i}
             className={`w-3 h-3 rounded-full transition-colors ${
-              index === currentIndex ? 'bg-red-500' : 'bg-gray-300'
+              i === currentIndex ? 'bg-red-500' : 'bg-gray-300'
             }`}
-            onClick={() => setCurrentIndex(index)}
+            onClick={() => setCurrentIndex(i)}
           />
         ))}
       </div>

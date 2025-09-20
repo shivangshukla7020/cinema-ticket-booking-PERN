@@ -2,27 +2,19 @@ import React from "react";
 
 const Footer = () => {
   return (
-    <footer className="footer mt-4 py-3">
-      <div className="container text-center me-5">
+    <footer className="bg-gray-100 mt-4 py-6">
+      <div className="container mx-auto text-center">
         <img
-          src="https://www.cgv.vn/skin/frontend/cgv/default/images/bg-cgv/brand-type-film-footer-min-600.png"
-          alt="cgvfooter"
+          src="https://via.placeholder.com/200x50?text=Logo"
+          alt="footer-logo"
+          className="mx-auto"
         />
       </div>
-      <div className="footer-cgv-address text-center mt-3">
-        <div className="cgv-address-content">
-          <div className="text-cgv-address">
-            <h5>CÔNG TY TNHH CJ CGV VIETNAM</h5>
-            <p className="mb-0">
-              Địa Chỉ:&nbsp;Tầng 2, Rivera Park Saigon - Số 7/28 Thành Thái, P.14, Q.10, TPHCM.
-            </p>
-            <p className="mb-0">Hotline: 1900 6017</p>
-            <p className="mb-0">COPYRIGHT 2021 CJ CGV. All RIGHTS RESERVED.</p>
-            <div className="d-flex justify-content-center mt-2">
-              <div className="logo-footer-cgv"></div>
-            </div>
-          </div>
-        </div>
+
+      <div className="mt-4 text-center text-gray-600 space-y-1">
+        <p>Company Name: Example Entertainment Ltd.</p>
+        <p>Address: 123 Main Street, City, Country</p>
+        <p>Hotline: +123 456 7890</p>
       </div>
     </footer>
   );

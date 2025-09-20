@@ -5,7 +5,7 @@ import Event from './components/Event';
 
 function Home() {
   return (
-    <main className="flex-shrink-0 container">
+    <main className="flex flex-col items-center gap-10 p-4">
       <Banner />
       <MovieSelection />
       <Event />

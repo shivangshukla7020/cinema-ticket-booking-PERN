@@ -1,7 +1,7 @@
 import moment from "moment";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useHistory, useParams, Redirect } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { getShowtimeDetailAction } from "../../redux/actions/showtimeActions";
 import { getUserSelector } from "../../redux/selectors/authSelector";
 import {
@@ -19,26 +19,26 @@ function Booking() {
   const resetSeats = useSelector(getResetSeatsSelector);
   const booking = useSelector(getBookingSelector);
   const dispatch = useDispatch();
-  const history = useHistory();
+  const navigate = useNavigate();
 
-  const onPreviousButton = () => history.goBack();
+  const onPreviousButton = () => navigate(-1);
 
   const onNextButton = () => {
     if (booking.seats.length === 0) {
       return alert("Please select seats!");
     }
-    history.push({ pathname: "/payment", state: { user, showtime, booking } });
+    navigate("/payment", { state: { user, showtime, booking } });
   };
 
   useEffect(() => {
-    dispatch(getShowtimeDetailAction(showtimeId, history));
+    dispatch(getShowtimeDetailAction(showtimeId, navigate));
     return () => {
       dispatch({ type: "REMOVE_SHOWTIME_DETAIL" });
       dispatch({ type: "REMOVE_BOOKING" });
     };
-  }, [dispatch, showtimeId, history]);
+  }, [dispatch, showtimeId, navigate]);
 
-  if (!user) return <Redirect to="/login" />;
+  if (!user) return <Navigate to="/login" replace />;
 
   if (!showtime || Object.keys(showtime).length === 0) return null;
 

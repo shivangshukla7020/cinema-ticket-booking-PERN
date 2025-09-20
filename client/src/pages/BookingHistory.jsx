@@ -1,7 +1,7 @@
 import moment from "moment";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Redirect } from "react-router-dom";
+import { Navigate } from "react-router-dom"; // <-- v6 change
 import { userGetBookingAction } from "../redux/actions/bookingActions";
 import { getUserSelector } from "../redux/selectors/authSelector";
 import { userGetBookingSelector } from "../redux/selectors/bookingSelector";
@@ -18,7 +18,8 @@ function BookingHistory() {
     };
   }, [dispatch]);
 
-  if (!user) return <Redirect to="/login" />;
+  // Redirect to login if user is not logged in
+  if (!user) return <Navigate to="/login" replace />; // <-- v6 replacement
 
   return (
     <main className="flex-shrink-0 min-h-screen flex flex-col items-center pt-10 bg-gray-50">

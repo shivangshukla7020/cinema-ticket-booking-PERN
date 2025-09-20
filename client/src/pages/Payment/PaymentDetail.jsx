@@ -1,5 +1,5 @@
 import React from 'react';
-import { useLocation, Redirect, useParams } from 'react-router-dom';
+import { useLocation, useParams, Navigate } from 'react-router-dom'; // <-- use Navigate
 import moment from 'moment';
 
 function PaymentDetail() {
@@ -8,7 +8,7 @@ function PaymentDetail() {
   const barcode = `https://www.barcodesinc.com/generator/image.php?code=${id}&style=196&type=C128B&width=600&height=80&xres=1&font=16`;
 
   if (!location.state) {
-    return <Redirect to="/" />;
+    return <Navigate to="/" replace />; // <-- v6 replacement
   }
 
   const { showtime = {}, booking = {} } = location.state;
